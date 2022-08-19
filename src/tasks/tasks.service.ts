@@ -3,7 +3,7 @@ import { TaskStatus } from './task.model';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 import { Task } from './dto/task.entity';
 
 @Injectable()
@@ -21,11 +21,11 @@ export class TasksService {
 
       return await this.taskRepository.findBy([{
         status,
-        title: Like(`%${search}%`)
+        title: ILike(`%${search}%`)
       },
       {
         status,
-        description: Like(`%${search}%`)
+        description: ILike(`%${search}%`)
       }
     ]);
     }else{
